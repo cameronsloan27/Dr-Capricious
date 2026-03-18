@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doc Cornelious Capricious — Physician & Surgeon, Est. 1851</title>
+<style>
+  /* =============================================
+     DESIGN TOKENS — edit these to retheme easily
+     ============================================= */
+  :root {
+    --ink:        #1a1610;
+    --ink-mid:    #3d3528;
+    --ink-faint:  #7a6e5f;
+    --parchment:  #f2ead8;
+    --parchment2: #e8dfc8;
+    --paper:      #faf7f0;
+    --rule:       #c8b89a;
+    --accent:     #2a1f0e;
+    --serif:      'IM Fell English', 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
+    --mono:       'Courier Prime', 'Courier New', Courier, monospace;
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Courier+Prime&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--parchment);
+    background-image:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 28px,
+        rgba(180,160,120,0.15) 28px,
+        rgba(180,160,120,0.15) 29px
+      );
+    color: var(--ink);
+    font-family: var(--serif);
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+  }
+
+  /* ---- HEADER ---- */
+  .masthead {
+    max-width: 720px;
+    margin: 0 auto 2.5rem;
+    text-align: center;
+    border-top: 3px double var(--ink-mid);
+    border-bottom: 3px double var(--ink-mid);
+    padding: 1.5rem 1rem;
+    position: relative;
+  }
+
+  .masthead::before, .masthead::after {
+    content: '✦';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem;
+    color: var(--ink-faint);
+  }
+  .masthead::before { left: 0.8rem; }
+  .masthead::after  { right: 0.8rem; }
+
+  .masthead .overline {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.6rem;
+  }
+
+  .masthead h1 {
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    font-style: italic;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  .masthead .subtitle {
+    font-size: 0.85rem;
+    color: var(--ink-mid);
+    margin-top: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .masthead .credentials {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    color: var(--ink-faint);
+    margin-top: 0.8rem;
+    letter-spacing: 0.08em;
+  }
+
+  /* ---- MAIN CARD ---- */
+  .consultation-card {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow:
+      inset 0 0 60px rgba(200,180,140,0.15),
+      4px 4px 0 rgba(0,0,0,0.08),
+      8px 8px 0 rgba(0,0,0,0.04);
+    padding: 2.5rem 2.5rem 2rem;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.4rem;
+    display: block;
+  }
+
+  .field-group {
+    margin-bottom: 1.8rem;
+  }
+
+  .field-group label {
+    display: block;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--ink-mid);
+    margin-bottom: 0.5rem;
+    line-height: 1.35;
+  }
+
+  textarea {
+    width: 100%;
+    background: var(--parchment);
+    border: 1px solid var(--rule);
+    border-bottom: 2px solid var(--ink-mid);
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 0.88rem;
+    line-height: 1.6;
+    padding: 0.75rem 0.9rem;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+    min-height: 90px;
+  }
+
+  textarea::placeholder {
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  textarea:focus {
+    background: #fdfaf3;
+    border-color: var(--ink);
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 1.5rem 0;
+  }
+
+  /* ---- SUBMIT BUTTON ---- */
+  .consult-btn {
+    display: block;
+    width: 100%;
+    padding: 0.9rem 1rem;
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: var(--serif);
+    font-size: 1.05rem;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, letter-spacing 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .consult-btn:hover {
+    background: var(--ink-mid);
+    letter-spacing: 0.08em;
+  }
+
+  .consult-btn:active {
+    background: #0e0b07;
+  }
+
+  .consult-btn .btn-ornament {
+    margin: 0 0.6rem;
+    opacity: 0.6;
+  }
+
+  /* ---- OUTPUT ---- */
+  #output-section {
+    display: none;
+    margin-top: 2.5rem;
+    border-top: 3px double var(--ink-mid);
+    padding-top: 2rem;
+  }
+
+  #output-section .rx-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  #output-section .rx-header .rx-symbol {
+    font-size: 2.5rem;
+    line-height: 1;
+    color: var(--ink-mid);
+    display: block;
+    font-style: italic;
+  }
+
+  #output-section .rx-header .rx-label {
+    font-family: var(--mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 0.2rem;
+  }
+
+  #diagnosis-text {
+    font-size: 0.97rem;
+    line-height: 1.85;
+    color: var(--ink);
+    white-space: pre-wrap;
+    font-family: var(--serif);
+  }
+
+  #diagnosis-text strong {
+    font-style: italic;
+  }
+
+  .rx-footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+  }
+
+  .signature {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--ink-mid);
+  }
+
+  /* ---- DISCLAIMER ---- */
+  .disclaimer {
+    max-width: 720px;
+    margin: 2rem auto 0;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 0.6rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+  }
+
+  /* ---- LOADING STATE ---- */
+  .thinking {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--ink-faint);
+    font-style: italic;
+    font-size: 0.9rem;
+    display: none;
+  }
+
+  .thinking .dots::after {
+    content: '';
+    animation: ellipsis 1.4s infinite;
+  }
+
+  @keyframes ellipsis {
+    0%   { content: '.'; }
+    33%  { content: '..'; }
+    66%  { content: '...'; }
+    100% { content: ''; }
+  }
+
+  /* ---- FADE IN ---- */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  #output-section.visible {
+    display: block;
+    animation: fadeIn 0.6s ease forwards;
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== MASTHEAD ===================== -->
+<header class="masthead">
+  <p class="overline">Established 1851 &nbsp;·&nbsp; London & The Colonies</p>
+  <h1>Doc Cornelious Capricious</h1>
+  <p class="subtitle">Physician, Surgeon & Purveyor of Constitutional Remedies</p>
+  <p class="credentials">
+    M.D. Edin. &nbsp;·&nbsp; F.R.C.S. &nbsp;·&nbsp; Corresponding Member, Vienna Society of Galvanic Medicine<br>
+    Awarded the Medal of Laudanum at the Paris Exposition, 1867
+</header>
+
+<!-- ===================== FORM CARD ===================== -->
+<main class="consultation-card">
+
+  <span class="section-label">Patient Intake — Strictly Confidential</span>
+
+  <div class="field-group">
+    <label>
+      I. Describe your present afflictions, complaints, and bodily troubles in full.
+      Spare no detail.
+    </label>
+    <textarea
+      id="ailments"
+      rows="5"
+      placeholder="e.g. A persistent melancholy about the eyes, troublesome wind after supper, an irritating rash upon the left forearm, and a general vaporous disposition since Michaelmas..."
+    ></textarea>
+  </div>
+
+  <div class="field-group">
+    <label>
+      II. List any tonics, preparations, or so-called &ldquo;medications&rdquo; you are presently consuming.
+      Be honest.
+    </label>
+    <textarea
+      id="medications"
+      rows="3"
+      placeholder="e.g. Aspirin, 10mg Lipitor, Vitamin D, a daily multivitamin, occasional whisky for the nerves..."
+    ></textarea>
+  </div>
+
+  <hr class="divider">
+
+  <button class="consult-btn" onclick="generateDiagnosis()">
+    <span class="btn-ornament">✦</span>
+    Seek the Doctor's Learned Opinion
+    <span class="btn-ornament">✦</span>
+  </button>
+
+  <!-- LOADING -->
+  <div class="thinking" id="thinking-msg">
+    <em>The Doctor is consulting his volumes<span class="dots"></span></em>
+  </div>
+
+  <!-- OUTPUT -->
+  <div id="output-section">
+    <div class="rx-header">
+      <span class="rx-symbol">℞</span>
+      <span class="rx-label">Official Diagnosis & Prescribed Course of Treatment</span>
+    </div>
+    <div id="diagnosis-text"></div>
+    <div class="rx-footer">
+      <span>Date of Consultation: <span id="consult-date"></span></span>
+      <span class="signature">Doc C. Capricious, M.D.</span>
+    </div>
+  </div>
+
+</main>
+
+<!-- ===================== DISCLAIMER ===================== -->
+<p class="disclaimer">
+  FOR ENTERTAINMENT PURPOSES ONLY &nbsp;·&nbsp; NOT MEDICAL ADVICE OF ANY KIND<br>
+  DOC CORNELIOUS CAPRICIOUS IS A FICTIONAL CHARACTER &nbsp;·&nbsp; PLEASE CONSULT AN ACTUAL PHYSICIAN
+</p>
+
+
+<!-- =====================================================================
+     KNOWLEDGE BASE — 1876 MEDICAL CORPUS
+     Based on: Buchan's Domestic Medicine (1769, widely used to 1890s),
+     King's American Dispensatory (1876), Culpeper's Complete Herbal,
+     Gray's Anatomy (1858 ed.), Hall's Journal of Health, Beard's
+     American Nervousness (1881), Thomson's New Guide to Health,
+     Mrs. Beeton's Book of Household Management, period patent medicine
+     catalogues, Lancet archives 1850-1880, wives' tales & carnival cures.
+     ===================================================================== */
+<script>
+
+// ═══════════════════════════════════════════════════════════════
+//  KNOWLEDGE BASE
+//  Structure: keyword arrays → treatment pools
+//  The engine matches user input to categories and draws treatments.
+// ═══════════════════════════════════════════════════════════════
+
+const KB = {
+
+  // ── SYMPTOM CATEGORIES ─────────────────────────────────────
+  categories: {
+
+    head: {
+      keywords: ["headache","head","migraine","skull","temple","forehead","brain","cranium","dizzy","dizziness","vertigo","lightheaded","faint","fainting"],
+      treatments: [
+        "Apply a poultice of mustard seed and vinegar directly to the crown of the head, binding it with a linen cloth dampened in cold brook water.",
+        "The Trepanation Method — a small bore hole at the occiput allows the noxious vapours to escape. Dr. Pembrook has performed this procedure upwards of forty times with only moderate fatality.",
+        "Sit facing north in a darkened room. Consume one grain of calomel (mercury chloride) dissolved in brandy. Repeat thrice daily.",
+        "A robust bleeding from the temporal vein — six to eight ounces — will relieve the cranial pressure without delay.",
+        "Bind the brow with a cloth soaked in spirits of camphor, then stand outdoors in brisk wind for no fewer than forty minutes.",
+        "Dr. Femple's Celebrated Neuralgic Lotion: equal parts chloroform, turpentine, and laudanum, rubbed vigorously into the scalp.",
+        "Sleep with your feet elevated above your head on a firm bolster. The blood will redistribute itself in a most salubrious fashion.",
+        "Consume a raw onion at each meal. The sulphurous compounds will purge whatever ails the cerebral passages.",
+      ]
+    },
+
+    chest: {
+      keywords: ["chest","lung","cough","breathe","breathing","breath","wheeze","wheezing","asthma","bronchitis","phlegm","mucus","heart","palpitation","palpitations","shortness","pneumonia","tuberculosis","consumption","cold","flu","influenza"],
+      treatments: [
+        "Goose fat rubbed liberally upon the sternum each evening, then wrapped in brown paper. Leave for seven nights.",
+        "The celebrated Tar Water cure: one pint of Norwegian pine tar stirred into four quarts of cold water. Drink freely. Bishop Berkeley himself vouched for it.",
+        "A mustard plaster applied to the chest — left on until the skin achieves a pleasing shade of crimson.",
+        "Inhale the vapours of burning sulphur through a paper cone. Repeat thrice daily until the breathing clears or the patient loses consciousness, whichever arrives first.",
+        "Sea air is absolutely paramount. The patient must remove immediately to the Dorset coast for no fewer than three months. Failing that, stand near the fishmonger.",
+        "Six to eight leeches applied to the chest wall, changed daily. Available from this very practice at two shillings the dozen.",
+        "Extract of Hemlock, four drops in a wine glass of warm porter, taken at sundown. Do not exceed six drops unless a deeper sleep is desired.",
+        "The patient should sleep with a live cat upon the chest. The animal's warmth and magnetic vital force shall draw out the malefic humours.",
+        "Consume one raw egg beaten with rum and a dessertspoon of rendered mutton fat before retiring each evening.",
+      ]
+    },
+
+    stomach: {
+      keywords: ["stomach","belly","gut","bowel","bowels","digestion","digestive","nausea","nauseous","vomit","vomiting","diarrhea","diarrhoea","constipation","bloat","bloating","gas","wind","cramp","cramping","acid","heartburn","indigestion","appetite","liver","spleen","intestine","intestines"],
+      treatments: [
+        "A thorough purgation is required immediately. Castor oil — not less than four tablespoons — taken with a grimace and a prayer.",
+        "Blue Mass pills (mercury, licorice, and rose water) taken three times daily for a fortnight. President Lincoln himself was a devotee.",
+        "The bowel demands flushing. A warm water enema administered each morning at six o'clock sharp shall restore regularity with military precision.",
+        "Rhubarb root, senna pods, and Epsom salts boiled together into a tea. Consume the full pot. Do not stray far from the privy.",
+        "Restrict diet to boiled arrowroot and weak beef tea for five days. On the sixth day, reward yourself with a single biscuit.",
+        "Apply a brick, heated in the fire and wrapped in flannel, to the abdomen for one hour. The heat shall dissolve whatever obstruction lurks within.",
+        "Charcoal biscuits — three with each meal — shall absorb the rebellious gases and restore domestic tranquility to the gut.",
+        "A wine glass of port mixed with a scruple of powdered chalk and a half-dram of laudanum, taken before meals, will calm the most excitable of intestines.",
+      ]
+    },
+
+    nerves: {
+      keywords: ["anxiety","anxious","nervous","nerves","stress","stressed","worry","worried","panic","depression","depressed","sad","melancholy","mood","mental","mind","hysteria","hysterical","neurasthenia","exhaustion","fatigue","tired","tiredness","insomnia","sleep","sleepless","irritable","irritability","anger","rage","vapours"],
+      treatments: [
+        "Neurasthenia — a thoroughly modern affliction brought on by railways, telegraphs, and the general pace of civilisation. The cure is simple: absolute rest. Return to bed immediately for a period of not less than six weeks.",
+        "The Faradaic galvanic belt — worn around the midriff — delivers a continuous mild electrical current to the abdominal nerves, restoring their vital tone. Available from this practice at twelve shillings.",
+        "Cold water hydrotherapy: immerse fully in a bath of water at 55°F for fifteen minutes each morning. The shock alone shall cure most maladies of the spirit.",
+        "Bromide of potassium, one dram in water, thrice daily. It will calm the nerves admirably and suppress any number of undesirable impulses.",
+        "An extended sojourn in the Swiss Alps or the Scottish Highlands is prescribed without delay. The thinner air and rugged scenery are sovereign remedies for the nervous temperament.",
+        "Dr. Hammond's Nerve Food: extract of beef, phosphorus, and glycerine. Builds the myelin sheath with remarkable efficiency.",
+        "Cease reading newspapers entirely. The modern press is a primary vector of nervous derangement.",
+        "Vigorous physical exercise — specifically the chopping of wood — is prescribed for one hour each morning. The exertion shall exhaust the nervous system into tranquility.",
+        "Valerian root steeped in hot water with a generous measure of brandy. To be taken at bedtime and whenever the world becomes too much.",
+      ]
+    },
+
+    skin: {
+      keywords: ["rash","skin","itch","itching","itchy","hives","eczema","psoriasis","acne","pimple","pimples","boil","boils","blister","blisters","wound","sore","sores","lesion","lesions","eruption","spot","spots","wart","warts","swelling","inflamed","inflammation","red","redness"],
+      treatments: [
+        "A sulfur bath: the patient shall immerse in water to which powdered brimstone has been liberally added. Three times weekly until the eruptions subside or the neighbours complain.",
+        "Blood purification is essential. Sarsaparilla root tea — six cups daily — shall cleanse the corrupted humours responsible for these cutaneous rebellions.",
+        "Apply coal tar directly to the affected area with a badger-hair brush. Bind with linen and replace the dressing each full moon.",
+        "Arsenic wafers — half a grain three times daily — are celebrated throughout Vienna for their complexion-improving properties. Glowing results guaranteed.",
+        "The patient's constitution is clearly bilious. A complete course of mercury ointment rubbed into the affected areas each night for thirty days.",
+        "Fresh plantain leaves, beaten until pulpy and applied as a poultice with onion juice, changed twice daily.",
+        "Reduce all meats, spirits, and stimulating beverages from the diet. Consume instead a quart of buttermilk each day and apply same to the skin.",
+        "Witch hazel — distilled, not the patent variety — applied with a clean cloth. Then wrap the affected limb in brown paper soaked in vinegar and retire.",
+      ]
+    },
+
+    joints: {
+      keywords: ["joint","joints","arthritis","rheumatism","rheumatoid","gout","knee","knees","back","spine","hip","hips","shoulder","shoulders","elbow","wrist","ankle","ankles","stiff","stiffness","ache","aching","pain","painful","sore muscles","muscle","muscles","cramp","cramps","sprain","sprains"],
+      treatments: [
+        "Rheumatism: the classic treatment. Apply a poultice of lard, turpentine, and red flannel to all afflicted joints. Change at dawn and dusk. Sleep near but not directly beneath an open window.",
+        "For gout — which is invariably a consequence of fine living — the patient must immediately abstain from port, organ meats, and good company.",
+        "Copper bracelets worn upon both wrists will draw the rheumatic poison from the joints through galvanic action. Three shillings per pair from this practice.",
+        "A liniment of camphor, mustard oil, and laudanum rubbed into the joint with firm circular strokes. Then the joint is baked before a roaring fire for twenty minutes.",
+        "The Utica water cure: immersion of affected joints in near-freezing mineral spring water for thirty minutes, followed immediately by vigorous rubbing with coarse wool flannel.",
+        "Cupping — the placing of heated glass vessels upon the skin near the afflicted joint — will draw the corrupted blood to the surface and relieve the interior congestion.",
+        "Consume a raw potato daily, carried in the pocket the remainder of the time. The potato will absorb the rheumatic poison through sympathetic chemistry.",
+        "Bee stings applied directly to the painful joint — three to five per session — have been celebrated since antiquity as a sovereign cure for joint afflictions.",
+      ]
+    },
+
+    women: {
+      keywords: ["menstrual","period","periods","menstruation","cramps","uterus","ovary","ovaries","feminine","hysteria","womb","pregnancy","pregnant","childbirth","breast","breasts","female","women","woman","hormones"],
+      treatments: [
+        "The uterine economy is delicate and demands careful management. Complete bed rest from the first to the fifth day of each month is non-negotiable.",
+        "Lydia Pinkham's Vegetable Compound — twenty percent alcohol, unicorn root, and black cohosh — is the most scientifically advanced preparation available for female complaints.",
+        "Pelvic massage administered by a licensed physician (this one) for thirty minutes weekly shall relieve hysteria, vapours, and most forms of feminine despondency.",
+        "The patient should avoid excitement, novels, mathematics, and any form of intellectual exertion. The female constitution is not designed for such rigours.",
+        "Iron tonic — Blaud's Pills — two with each meal. The blood requires strengthening and the complexion requires improving.",
+        "A warm flannel wrapped around the lower abdomen, a cup of raspberry leaf tea, and a complete cessation of marital duties for the period in question.",
+      ]
+    },
+
+    fever: {
+      keywords: ["fever","temperature","hot","sweating","sweat","chills","shivering","infection","infected","inflammation","malaria","typhoid","scarlet","septic"],
+      treatments: [
+        "Quinine — the Peruvian bark — taken in heroic doses dissolved in tonic water. If the fever is of a malarial character, double the dose.",
+        "The fever demands immediate blood-letting. Seven to ten ounces from the antecubital vein, twice daily, until the fever breaks or the patient becomes interestingly pale.",
+        "Pack the patient in wet sheets chilled in the larder. Change the sheets every two hours throughout the night. Do not allow the patient to sleep — rest feeds the fever.",
+        "Dover's Powder: ipecac and opium in equal measure. Will produce copious sweating and a great deal of excitement, after which the patient will rest deeply and the fever shall have passed.",
+        "Spirits of turpentine — one tablespoon in molasses — taken each morning. The fever cannot survive the turpentine's assault upon the body's interior.",
+        "Ice applied to the head, hot water bottles to the feet, and a mustard plaster to the abdomen simultaneously. The fever, caught between these three forces, shall surrender.",
+      ]
+    },
+
+    eyes: {
+      keywords: ["eye","eyes","vision","sight","blind","blurry","blur","squint","twitch","eyelid","eyelids","pupil","cornea","glaucoma","cataracts"],
+      treatments: [
+        "Eyewash of dilute boric acid — half a grain to the ounce of distilled water — applied with an eye bath cup three times daily.",
+        "If the vision is weak, this is almost certainly caused by excessive reading by candlelight or — and the doctor lowers his voice — self-pollution. Cease both activities immediately.",
+        "Belladonna drops: one drop per eye each morning. The pupils will dilate beautifully and the patient will perceive everything in a pleasantly diffuse light.",
+        "A poultice of raw beef applied to closed eyelids for twenty minutes nightly. The vital force of the beef shall transfer itself to the optic nerve.",
+        "The eyes should be washed in one's own morning urine. This has been recommended since the time of Pliny and is not to be dismissed merely because it is unpleasant.",
+      ]
+    },
+
+    teeth: {
+      keywords: ["tooth","teeth","toothache","dental","gum","gums","jaw","mouth","cavity","cavities","abscess"],
+      treatments: [
+        "Oil of cloves — undiluted — applied directly to the offending tooth with a cotton pledget. If this proves insufficient, a pair of forceps and a stout constitution.",
+        "The tooth is almost certainly the source of your other ailments as well. Extraction is recommended. All of them, to be safe. Dentures are a perfectly satisfactory arrangement.",
+        "Pack the cavity with a paste of cocaine hydrochloride and zinc oxide. The cocaine will anaesthetise the tooth and improve the patient's overall outlook considerably.",
+        "Rinse the mouth with whisky each morning, retaining the whisky against the offending tooth for as long as willpower permits, then swallow.",
+        "A tourniquet of linen thread tied tightly around the base of the tooth, tightened incrementally over three days, will loosen it for painless extraction on the fourth.",
+      ]
+    },
+
+    general: {
+      keywords: ["tired","exhausted","weak","weakness","general","overall","everything","anything","nothing","poor","bad","unwell","ill","sick","malaise","constitution","health"],
+      treatments: [
+        "The constitution requires a thorough tonic. Cod liver oil — one gill each morning — taken without complaint.",
+        "Fresh country air and vigorous walking — no fewer than eight miles daily — shall restore the vital spirits with admirable efficiency.",
+        "A course of sea bathing is prescribed: immersion in cold salt water each morning at first light for a period of six weeks.",
+        "The patent preparation Sears' Vigor of Men tonic — cocaine hydrochloride, gentian root, and Peruvian bark in sherry wine — sold at this practice at four shillings the bottle.",
+      ]
+    }
+  },
+
+  // ── MEDICATION RESPONSES ────────────────────────────────────
+  // These are triggered when the user mentions modern drugs.
+  // Keys are keyword fragments; values are the doctor's commentary.
+  medications: {
+    "aspirin": "You mention Aspirin — I presume you refer to a salicylic compound. Willow bark tea achieves the identical effect and does not line the pockets of pharmaceutical merchants.",
+    "ibuprofen": "Ibuprofen. I am not familiar with this preparation, though it sounds aggressively Germanic. I recommend oil of wintergreen applied topically as a superior alternative.",
+    "statins": "You are consuming a preparation to manage the blood's fat content? Extraordinary. Simply abstain from butter for a fortnight and take a brisk constitutional each morning.",
+    "lipitor": "Lipitor: another proprietary compound of dubious provenance. Garlic — raw, not cooked — consumed at each meal will purify the blood of all fatty corruption.",
+    "metformin": "Metformin suggests a diabetic tendency. The treatment is clear: no sugar, no white bread, and a tablespoon of bitter melon juice each morning.",
+    "antidepressant": "You are taking a preparation for the spirits? Laudanum has served this purpose admirably for two hundred years and requires no prescription.",
+    "prozac": "Prozac. The name alone is alarming. Valerian root and a fortnight of bed rest will accomplish the same without whatever a 'selective serotonin reuptake inhibitor' is.",
+    "ssri": "An SSRI. I confess this terminology eludes me entirely. Bromide of potassium — one dram in water at bedtime — has never failed a patient whose nerves required quieting.",
+    "vitamin": "You consume concentrated vitamins in tablet form? Remarkable. Simply eat a raw turnip and half a lemon each day and your vitamin requirements shall be comprehensively met.",
+    "supplement": "Supplements. In my day we called them food. Consume a varied diet of boiled mutton, root vegetables, and porter, and the body shall supply its own supplementation.",
+    "blood pressure": "A preparation for elevated blood pressure. I prescribe instead: retire from business, dismiss your most irritating relations, and take the waters at Bath for eight weeks.",
+    "thyroid": "The thyroid gland — a mysterious structure. We recommend iodised salt and the avoidance of all excitement, which tends to inflame glandular tissues.",
+    "insulin": "You inject yourself with a pancreatic compound? This sounds like the sort of thing one reads about in sensation novels. Strict dietary reform will render such barbarism unnecessary.",
+    "antibiotic": "Antibiotics — I presume some manner of bactericidal preparation. Carbolic acid applied liberally to the wound site has served surgery admirably since Lord Lister's work in 1867.",
+    "acid reflux": "A preparation for the stomach's excessive acidity. I prescribe instead: bicarbonate of soda in warm water, eaten standing up, and smaller meals taken in contemplative silence.",
+    "omeprazole": "Omeprazole. Unknown to this practice. Chalk, magnesia, and a light supper at six o'clock sharp will address the acid condition without resort to patent chemistry.",
+    "melatonin": "You take melatonin for sleep? Simply consume a large supper at eight o'clock, read one chapter of a Parliamentary record, and the sleep will arrive of its own accord.",
+    "cannabis": "You consume cannabis? This is a preparation known to Eastern physicians for centuries. Acceptable in tincture form for the nerves, though smoking it suggests a bohemian character.",
+    "cocaine": "Cocaine — already prescribed by this practice for numerous complaints. You are ahead of the curve.",
+    "alcohol": "Alcohol in moderation is a tonic. In excess it is a disease. The line between these conditions is, admittedly, somewhat subjective.",
+    "whisky": "Whisky. The correct medicine for at least seventeen conditions. You are already well on your way to recovery.",
+  },
+
+  // ── OPENING GAMBITS ─────────────────────────────────────────
+  openings: [
+    "Ah. Sit down. Remove your hat. I have reviewed your complaints with the gravity they deserve — which is to say, considerable gravity indeed.\n\n",
+    "Good heavens. I have not encountered a constellation of symptoms quite like this since the great Cholera outbreak of '54. Compose yourself and attend carefully.\n\n",
+    "*peers over spectacles and scribbles furiously in the ledger*\n\nMost interesting. Most interesting indeed. Your condition is not, as you feared, fatal — though it is certainly inconvenient.\n\n",
+    "I have consulted my volumes — Gray's Anatomy, Culpeper's Herbal, and the 1876 edition of King's American Dispensatory — and I am now in a position to render judgment.\n\n",
+    "*taps pipe thoughtfully against the desk*\n\nSit. Be still. The physician thinks. Your case presents what we in the profession term a Plethoric Diathesis with Bilious Complications, which is to say: you are a mess.\n\n",
+    "After careful examination of your written testimony — for I have not touched a patient directly since the incident of 1868 — I have arrived at my diagnosis.\n\n",
+  ],
+
+  // ── DIAGNOSIS FRAMEWORKS ────────────────────────────────────
+  diagnoses: [
+    "Your primary complaint arises from an imbalance of the four humours, specifically an excess of Black Bile combined with a deficiency of the Vital Spirits.",
+    "The condition presents as what we call Neurasthenic Plethora: an overstuffing of the nervous system brought about by modern life, insufficient cold baths, and almost certainly too much reading.",
+    "Clearly, the liver is congested. When the liver becomes congested — as it invariably does in persons of your apparent constitution — the morbid matter disperses throughout the system like a noxious miasma.",
+    "The root cause is Malarial Miasma absorbed, most likely, from bad night air. You have been sleeping with the window open, haven't you. I knew it.",
+    "This is a classic presentation of Torpid Bowel, which, as any physician worth his salt knows, is the origin of no fewer than seventy percent of human suffering.",
+    "The blood is corrupt. This much is evident. The blood has become thick, sluggish, and bilious — a condition brought on by improper diet, insufficient exercise, and almost certainly bad company.",
+    "You present with what I am calling Exhaustion of the Vital Force — the body's interior electricity has been depleted through overwork, worry, and the general assault of modernity.",
+  ],
+
+  // ── LIFESTYLE PRESCRIPTIONS ─────────────────────────────────
+  // Always added at the end for colour.
+  lifestyle: [
+    "Furthermore: cease bathing more than once weekly. Frequent bathing opens the pores to the entry of miasmatic vapours.",
+    "You will also benefit from a period of ABSOLUTE QUIET. No newspapers, no telegrams, no conversation with persons of an excitable nature.",
+    "The doctor strongly advises a voyage by steamship. The sea air, the gentle pitching motion, and the complete removal from one's present circumstances cures nearly everything.",
+    "Retire no later than nine o'clock. Rise at five. Cold water to the face. Walk briskly for one hour before breaking your fast.",
+    "Reduce your meat consumption to twice daily and ensure the third meal consists entirely of boiled grains. Your constitution will thank you within a fortnight.",
+    "Spend at minimum one hour each day in vigorous outdoor exercise. Not the effete modern calisthenics — proper exercise. Rowing, wood-chopping, or hedge-laying.",
+    "The doctor recommends a course of Turkish baths — daily for the first fortnight, then twice weekly for maintenance. The perspiration purges what medicine cannot reach.",
+    "Finally: apply yourself to some honest manual labour. The physician has observed that the idle classes suffer precisely the ailments you describe, while working men are largely immune.",
+    "Avoid all excitement, strong emotion, and American novels. These are primary vectors of nervous derangement in the otherwise well-constituted individual.",
+    "A change of climate is non-negotiable. The Swiss Alps for summer, the Italian Riviera for winter. Failing that, the Yorkshire Dales will serve in a pinch.",
+  ],
+
+  // ── CLOSINGS ────────────────────────────────────────────────
+  closings: [
+    "\n\nMy fee is two guineas. Leave it on the table. Do not write cheques — they indicate a suspicious character.\n\n— Doc C. Capricious, M.D. Edin.",
+    "\n\nFollow these prescriptions exactly as written. Return in a fortnight, or sooner if you turn yellow. Either outcome will be interesting.\n\n— Doc C. Capricious, M.D. Edin.",
+    "\n\nShould any of these remedies produce alarming side effects, this is perfectly normal and indicates the medicine is working. Press on.\n\n— Doc C. Capricious, M.D. Edin.",
+    "\n\nI have seen worse cases recover fully. I have also seen better cases recover not at all. The body is a mystery. My fee is two guineas.\n\n— Doc C. Capricious, M.D. Edin.",
+    "\n\nYou will be fine. Probably. The human organism is remarkably resilient, particularly when subjected to a bracing course of treatment such as I have prescribed above.\n\n— Doc C. Capricious, M.D. Edin.",
+  ]
+};
+
+// ═══════════════════════════════════════════════════════════════
+//  RESPONSE ENGINE
+// ═══════════════════════════════════════════════════════════════
+
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function pickN(arr, n) {
+  const shuffled = [...arr].sort(() => Math.random() - 0.5);
+  return shuffled.slice(0, n);
+}
+
+function matchCategories(text) {
+  const lower = text.toLowerCase();
+  const matched = [];
+  for (const [cat, data] of Object.entries(KB.categories)) {
+    for (const kw of data.keywords) {
+      if (lower.includes(kw)) {
+        matched.push(cat);
+        break;
+      }
+    }
+  }
+  return matched;
+}
+
+function buildMedCommentary(medText) {
+  if (!medText || medText.trim().length < 3) return null;
+  const lower = medText.toLowerCase();
+  const lines = [];
+  for (const [kw, comment] of Object.entries(KB.medications)) {
+    if (lower.includes(kw)) {
+      lines.push(comment);
+    }
+  }
+  if (lines.length === 0 && medText.trim().length > 3) {
+    // Generic fallback for unrecognised medications
+    lines.push(`You mention certain preparations I do not recognise — likely proprietary compounds of dubious origin. I advise cessation of all of them immediately, replacing them with the treatments prescribed below. The body heals itself when the apothecary is kept at arm's length.`);
+  }
+  return lines.length > 0 ? lines : null;
+}
+
+function generateDiagnosis() {
+  const ailments = document.getElementById('ailments').value.trim();
+  const medications = document.getElementById('medications').value.trim();
+
+  if (ailments.length < 5) {
+    alert('The doctor requires more detail than that. Describe your complaints fully.');
+    return;
+  }
+
+  // Show thinking
+  document.getElementById('thinking-msg').style.display = 'block';
+  document.getElementById('output-section').classList.remove('visible');
+  document.getElementById('output-section').style.display = 'none';
+
+  // Small delay for theatrical effect
+  setTimeout(() => {
+    const result = buildResponse(ailments, medications);
+    document.getElementById('diagnosis-text').innerHTML = result;
+    document.getElementById('consult-date').textContent = formatVictorianDate();
+    document.getElementById('thinking-msg').style.display = 'none';
+    document.getElementById('output-section').classList.add('visible');
+    document.getElementById('output-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 1800);
+}
+
+function buildResponse(ailments, medications) {
+  const parts = [];
+
+  // 1. Opening
+  parts.push(pick(KB.openings));
+
+  // 2. Diagnosis
+  parts.push(pick(KB.diagnoses));
+  parts.push("\n\n");
+
+  // 3. Medication commentary
+  const medCommentary = buildMedCommentary(medications);
+  if (medCommentary && medCommentary.length > 0) {
+    parts.push("<em>On the matter of your present preparations:</em> ");
+    parts.push(medCommentary.join(" "));
+    parts.push("\n\n");
+  }
+
+  // 4. Treatments — match to symptom categories
+  const matched = matchCategories(ailments);
+  const treatmentPool = [];
+
+  if (matched.length > 0) {
+    for (const cat of matched) {
+      const cats = KB.categories[cat].treatments;
+      treatmentPool.push(...cats);
+    }
+  } else {
+    // No keyword match — pull from general
+    treatmentPool.push(...KB.categories.general.treatments);
+    // And a random other category
+    const allCats = Object.keys(KB.categories);
+    const randomCat = pick(allCats);
+    treatmentPool.push(...KB.categories[randomCat].treatments);
+  }
+
+  // Always add a couple from a random unrelated category for absurdist colour
+  const allCatKeys = Object.keys(KB.categories).filter(k => !matched.includes(k));
+  if (allCatKeys.length > 0) {
+    const bonus = pick(allCatKeys);
+    treatmentPool.push(pick(KB.categories[bonus].treatments));
+  }
+
+  const selectedTreatments = pickN(treatmentPool, Math.min(4, treatmentPool.length));
+
+  parts.push("<strong>Prescribed Course of Treatment — to be followed without deviation:</strong>\n\n");
+  selectedTreatments.forEach((t, i) => {
+    parts.push(`<strong>${toRoman(i + 1)}.</strong> ${t}\n\n`);
+  });
+
+  // 5. Lifestyle addition
+  parts.push(pick(KB.lifestyle));
+  parts.push("\n\n");
+
+  // 6. Closing
+  parts.push(pick(KB.closings));
+
+  return parts.join('');
+}
+
+function toRoman(n) {
+  const map = { 1: 'I', 2: 'II', 3: 'III', 4: 'IV', 5: 'V' };
+  return map[n] || n;
+}
+
+function formatVictorianDate() {
+  const d = new Date();
+  const months = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+  // Offset to 1876
+  return `The ${ordinal(d.getDate())} of ${months[d.getMonth()]}, 1876`;
+}
+
+function ordinal(n) {
+  const s = ["th","st","nd","rd"];
+  const v = n % 100;
+  return n + (s[(v-20)%10] || s[v] || s[0]);
+}
+
+// Set consultation date on load
+document.addEventListener('DOMContentLoaded', () => {
+  // Nothing needed on load
+});
+
+</script>
+</body>
+</html>
