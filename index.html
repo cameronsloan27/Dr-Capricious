@@ -347,7 +347,7 @@
 
   <hr class="divider">
 
-  <button class="consult-btn" onclick="generateDiagnosis()">
+  <button class="consult-btn" id="consult-btn">
     <span class="btn-ornament">✦</span>
     Seek the Doctor's Learned Opinion
     <span class="btn-ornament">✦</span>
@@ -769,7 +769,7 @@ function ordinal(n) {
 
 // Set consultation date on load
 document.addEventListener('DOMContentLoaded', () => {
-  // Nothing needed on load
+  document.getElementById('consult-btn').addEventListener('click', generateDiagnosis);
 });
 
 </script>
